@@ -14,7 +14,7 @@ er（）不能同时存在</div></td></tr></tbody></table><br>
  this（）是调用一个类中的兄弟方法（一般为构造方法）<br>
   <br>
 
-```
+
 
 ```
 
@@ -29,14 +29,14 @@ public Student(){
 
 ```
 
-```
+
 
 super（）调用 父类的构造方法<br>
    <br>
 
 ```
 
-```
+
 
 public Student(){
 
@@ -46,7 +46,7 @@ public Student(){
 
 ```
 
-```
+
 
 2.属性<br>
  调用属性的顺序：先搜索本类中是否存在，不存在则去寻找父类<br>
@@ -56,7 +56,7 @@ public Student(){
 <br>
 <br>
 
-```
+
 
 ```
 
@@ -93,13 +93,13 @@ publib class B extends A{
 
 ```
 
-```
+
 
 3.方法<br>
  <br>
 <table class="t_table" style="width:50%" cellspacing="0"><tbody><tr><td> this.show()</td><td> super.show()</td></tr><tr><td> this.show()先搜索本类是否存在不存在则父类</td><td> 调用父类的show（）方法</td></tr></tbody></table><br>
 
-```
+
 
 ```
 
@@ -114,7 +114,7 @@ public void printA()
   父类的
   子类的
 
-```
+
 
 ```
 
