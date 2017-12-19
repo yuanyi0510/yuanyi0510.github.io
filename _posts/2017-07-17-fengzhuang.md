@@ -36,25 +36,7 @@ tag: Java
    <br>
    权限如下：<br>
 
-<ignore_js_op>
-
-<img id="aimg_72506" aid="72506" src="forum.php?mod=attachment&amp;aid=NzI1MDZ8ZjZhNTEyZTZ8MTUxMzY0ODMwOXw3MDA1fDEyNjQyMg%3D%3D&amp;noupdate=yes" zoomfile="forum.php?mod=attachment&amp;aid=NzI1MDZ8ZjZhNTEyZTZ8MTUxMzY0ODMwOXw3MDA1fDEyNjQyMg%3D%3D&amp;noupdate=yes&amp;nothumb=yes" file="forum.php?mod=attachment&amp;aid=NzI1MDZ8ZjZhNTEyZTZ8MTUxMzY0ODMwOXw3MDA1fDEyNjQyMg%3D%3D&amp;noupdate=yes" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" inpost="1" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" data-bd-imgshare-binded="1" initialized="true" width="481">
-
-<div class="tip tip_4 aimg_tip" id="aimg_72506_menu" style="position: absolute; z-index: 301; left: 214.5px; top: 952.5px; display: none;" disautofocus="true" initialized="true">
-<div class="xs0">
-<p><strong>QQ截图20170728082629.png</strong> <em class="xg1">(31.29 KB, 下载次数: 0)</em></p>
-<p>
-<a href="forum.php?mod=attachment&amp;aid=NzI1MDZ8ZjZhNTEyZTZ8MTUxMzY0ODMwOXw3MDA1fDEyNjQyMg%3D%3D&amp;nothumb=yes" target="_blank">下载附件</a>
-
-</p>
-
-<p class="xg1 y">2017-7-28 08:30 上传</p>
-
-</div>
-<div class="tip_horn"></div>
-</div>
-
-</ignore_js_op>
+<img src="power.png">
 <br>
 总结：<br>
  public 修饰的可以在同包或者不同包中被访问<br>
