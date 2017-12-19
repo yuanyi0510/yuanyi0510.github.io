@@ -7,9 +7,7 @@ tag: Java
 
 
 
-<table cellspacing="0" cellpadding="0"><tbody><tr><td class="t_f" id="postmessage_177108">
-<font size="5"><font size="4"> </font><br>
-</font><table class="t_table" style="width:50%" cellspacing="0"><tbody><tr><td><div align="center">this</div></td><td><div align="center">super</div></td><td><div align="center">注意</div></td></tr><tr><td><div align="center">本类构造</div></td><td><div align="center">父类的构造方法</div></td><td><div align="center">this()与sup<br>
+<table class="t_table" style="width:50%" cellspacing="0"><tbody><tr><td><div align="center">this</div></td><td><div align="center">super</div></td><td><div align="center">注意</div></td></tr><tr><td><div align="center">本类构造</div></td><td><div align="center">父类的构造方法</div></td><td><div align="center">this()与sup<br>
 <br>
 er（）不能同时存在</div></td></tr></tbody></table><br>
 <font size="4">1.构造方法<br>
@@ -54,6 +52,7 @@ super（）调用 父类的构造方法<br>
    {<br>
 
 >        `this.x=x;//此时的x本类中不存在所以是父类的<br>`
+
 
 
 >     }<br>
