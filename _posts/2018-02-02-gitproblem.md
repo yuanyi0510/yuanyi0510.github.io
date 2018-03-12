@@ -5,7 +5,7 @@ date: 2018-02-02
 tag: "开发工具" 
 ---
 
-**转载请注明原文链接： [原文链接](https://segmentfault.com/a/1190000004318632)
+ [原文链接](https://segmentfault.com/a/1190000004318632)
 
 ### 为什么你的 Contributions 没有在你的 Profile 里显示？
 那么问题来了，什么是Contributions呢，Github官网上有这么一句话：
@@ -16,7 +16,8 @@ Your profile contributions graph is a record of contributions you've made to Git
 ```
 ### 什么样的贡献才会被Github统计?
 
-####Issues 和 pull requests
+#### Issues 和 pull requests
+
 + 这个操作是在一年之内
 
 + 这个操作是针对一个独立的仓库，不能是fork
@@ -32,9 +33,9 @@ Your profile contributions graph is a record of contributions you've made to Git
 
 + 这些commits是在：
 
-	+ 在默认分支上（通常是master）
+  + 在默认分支上（通常是master）
 
-	+ 在gh-pages分支(包含 Project Pages sites 的仓库)
+  + 在gh-pages分支(包含 Project Pages sites 的仓库)
 
 此外，至少满足下面条件中的一个（主要针对你Commit的仓库不是你创建的）：
 
@@ -82,8 +83,8 @@ Your profile contributions graph is a record of contributions you've made to Git
 1. Mac、Linux下打开Terminal，Windows下打开命令提示符（command prompt）
 
 2. 给你的repo创建一个全新的clone
-git clone --bare https://github.com/user/repo.git
-cd repo.git
+  git clone --bare https://github.com/user/repo.git
+  cd repo.git
 
 3.复制粘贴脚本，并根据你的信息修改以下变量：旧的Email地址，正确的用户名，正确的邮件地址
 ```
