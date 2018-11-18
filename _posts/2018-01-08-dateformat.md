@@ -2,12 +2,15 @@
 layout: post
 title: "使用DateFormat需设置语言环境"
 date: 2018-01-08   
-tag: Java 
+tag: JavaSE
 ---
 
-转载：<http://iyiguo.net/blog/2014/05/19/java-dateformat-instance/>
+[转载](http://iyiguo.net/blog/2014/05/19/java-dateformat-instance/)
+
+###  使用DateFormat需设置语言环境
 
 先看段代码：
+
 ```
 String sDate = "2014-12-20";
 try {
@@ -20,11 +23,13 @@ try {
 这段代码在中文语言环境下是可以测试通过。但在其他语言环境中则会抛出异常。原因是DateFormat.getDateInstance()初始化时会跟据当前语言环境设置日期格式。
 
 1. DateFormat.getDateInstance() 根据当前语言环境设置日期模式：
+
 ```
  zh_CN : yyyy-MM-dd : 2014-05-19
  en_us : MMM d, yyyy : May 19, 2014
 ```
-2. DateFormat.getDateInstance(int style) 根据当前语言环境设置指定的日期模式：
+1. DateFormat.getDateInstance(int style) 根据当前语言环境设置指定的日期模式：
+
 ```
 // Locale.SIMPLIFIED_CHINESE | Locale.CHINA | Locale.CHINESE
  // DateFormat.DEFAULT == DateFormat.MEDIUM
@@ -40,7 +45,7 @@ try {
  DateFormat.getDateInstance(DateFormat.MEDIUM);// MMM d, yyyy
  DateFormat.getDateInstance(DateFormat.FULL);// EEEE, MMMM d, yyyy
 ```
-3. DateFormat.getDateInstance(int style, Locale aLocale) 指定语言环境及相应日期模式
+1. DateFormat.getDateInstance(int style, Locale aLocale) 指定语言环境及相应日期模式
 ```
 DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.CHINESE);
  // 上述代码等价于

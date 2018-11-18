@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "设计模式——单例模式"
+title: "单例模式"
 date: 2017-07-22
-tag: Java 
+tag: 设计模式
 ---
 
 
