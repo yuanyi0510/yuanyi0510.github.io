@@ -2,7 +2,7 @@
 layout: post
 title: "Java中 VO、 PO、DO、DTO、 BO、 QO、DAO、POJO的概念"
 date: 2018-01-19 
-tag: javaSE
+tag: JavaSE
 ---
 
 [原文链接](http://www.hollischuang.com/archives/553)
