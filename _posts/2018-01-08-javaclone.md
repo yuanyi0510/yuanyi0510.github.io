@@ -2,7 +2,7 @@
 layout: post
 title: "详解Java中的clone方法 -- 原型模式"
 date: 2018-01-08   
-tag: Java 
+tag: JavaSE
 ---
 
 转载：<http://blog.csdn.net/zhangjg_blog/article/details/18369201>
