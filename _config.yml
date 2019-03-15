@@ -5,12 +5,13 @@ description: 欢迎来到我的个人站~
 # 头像里面的标题
 avatarTitle: yuanyi
 # 头像里面的描述
-avatarDesc: java / 大数据
+avatarDesc: java开发
 url: "https://yuanyi0510.github.io/"
 
 # Comment
 comment:
     disqus: leopard
+    # gitment: xxx // 需要修改 comments.html中的client_id和client_secret
     # uyan: 2143225  # 有言id,登录有言官网申请
 
 # Social
@@ -27,9 +28,9 @@ baidu:
 
 # Google Analytics
 # 使用博客模板请去掉或者更换 id
-#ga:
-  #  id: UA-84134159-3
-  #  host: auto
+ga:
+   id:
+   host: auto
 
 
 # 《----------------- 上面的信息修改成你自己的 ---------------------------》
