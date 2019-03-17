@@ -1,140 +1,139 @@
 ---
 layout: post
-title: "猫眼电影"
-date: 2019-3-14
-tag: 面试总结 
+title: "大型网站系统与Java中间件实践"
+date: 2019-3-17
+tag: 摘要 
 ---
 
-# 一面
+[TOC]
 
-### 自我介绍
+### 分布式系统
 
-### 介绍一下项目
+#### 定义：
 
-### 项目中的单点登陆怎么实现的，为什么会携带token
+1. 组件分布在网络计算机上
+2. 组件之间仅仅通过消息传递通信并协调行动
 
-http无状态
+#### 网络IO实现的方式：
 
-### 项目中为什么使用zookeeper
+1. BIO方式：阻塞的方式实现，一个线程处理一个socket
+2. NIO方式：非阻塞的方式实现，基于事件驱动思想，采用reactor模式
+   1. Reactor会管理所有的handler
+   2. 通过Reactor对所有的客户端的socket事件处理，然后派发到不同的线程
+   3. ![Reactor模式在通信中的应用](https://raw.githubusercontent.com/yuanyi0510/yuanyi0510.github.io/master/images/bolg_images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/1.jpg)
+3. AIO方式
+   1. 异步IO，采用Proactor模式。
+   2. 在动作发生的时候发出通知，比如在进行读/写操作时，只需要调用相应的read/write方法，并传入需要的CompletionHandler，动作完成之后，会调用CompletionHandler
+   3. NIO的通知发生在动作之前，选择器发现这些是件后调用handler处理
 
-1. 配置信息同步
-2. 集群内节点状态快速感知
+#### 分布式系统的难点
 
-### 项目中使用redis做了什么
+1. 缺乏全局时钟
+2. 面对故障独立性
+3. 处理单点故障
+4. 事务的挑战
 
-1. 使用redis存储用户登录信息
-2. 使用redis的list结构存储用户订阅的币种信息
+### 大型网站架构演进过程
 
-……
+#### 应用服务器负载，走向集群
 
-### 说一下Java的特征
+当增加服务器应用之后出现了几个问题：
 
-面向对象，封装、继承、多态
+1. 服务器访问的问题。
+   1. 通过DNS解决
+   2. 增加负载均衡设备，如：nginx
+2. session问题
 
-#### 封装
+##### 负载均衡
 
-利用抽象数据类型将数据和基于数据的操作封装在一起，使其构成一个不可分割的独立实体。数据被保护在抽象数据类型的内部，尽可能地隐藏内部的细节，只保留一些对外接口使之与外部发生联系。用户无需知道对象内部的细节，但可以通过对象对外提供的接口来访问该对象。
+在引用了负载均衡之后，在浏览器和服务器之间加了一层保护屏障——负载均衡器
 
-优点：
+![负载均衡结构](https://raw.githubusercontent.com/yuanyi0510/yuanyi0510.github.io/master/images/bolg_images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/2.jpg)
 
-- 减少耦合：可以独立地开发、测试、优化、使用、理解和修改
-- 减轻维护的负担：可以更容易被程序员理解，并且在调试的时候可以不影响其他模块
-- 有效地调节性能：可以通过剖析确定哪些模块影响了系统的性能
-- 提高软件的可重用性
-- 降低了构建大型系统的风险：即使整个系统不可用，但是这些独立的模块却有可能是可用的
+##### session问题
 
-#### 继承
+http协议的无状态，所以在每次会话时需要携带会话标识，在集群中无法保障每次请求都在一台机器上，所以会导致无法识别会话
 
-继承实现了 **IS-A** 关系，例如 Cat 和 Animal 就是一种 IS-A 关系，因此 Cat 可以继承自 Animal，从而获得 Animal 非 private 的属性和方法。
+1. Session Stricky
 
-继承应该遵循里氏替换原则，子类对象必须能够替换掉所有父类对象。
+   保证同一个会话请求在同一个服务器处理，需要负载均衡器根据会话标识进行请求转发
 
-#### 多态
+   - 如果有一台机器坏掉，所有数据丢失
 
-多态有三个条件：
 
-- 继承
-- 覆盖（重写）
-- 向上转型
+- 会话标识是应用层信息，开销比较大
 
-### 了解线程么，讲述一下
 
-这个范围太宽泛了，我就大概讲述了一下线程池的原理
+- 负载均衡器变成有状态的节点，内存消耗大
 
-### 知道锁么，阐述一下
+1. Session Replication
 
-锁也是一样的，讲述了一下synchronized和volatitle关键字
+   在服务器之间增加了会话数据同步，保证服务器之间session的一致性。通过应用容器来完成session复制
 
-# 二面
+   - 同步数据造成网络带宽的开销
+   - 每台机器用于保存session数据占用严重
 
-### 自我介绍
+2. Session数据集中存储
 
-### 讲述项目
+   将session数据集中存储起来，不同的web服务器从同样的地方获取session。可以使用数据库或者其他的分布式存储系统存储sessioin
 
-### 给一个数组N，求最大的M个整数
+   - 读写session存在时延和不稳定性
+   - 如果存储session的机器坏掉会影响使用应用
 
-```java
-public class Maoyan {
-    public static void main(String[] args) {
-        int[] arr={1,2,3,4,5};
-        int [] sortedList=sort(arr);
-        int M=2;
-        for (int i = 0; i < M; i++) {
-            System.out.println(sortedList[i]);
-        }
-    }
+3. Cookie
 
-    public  static  int [] sort(int[]  arr){
-        for (int i=0;i<arr.length-1;i++){
-            for (int j=0;j<arr.length-1-i;j++){
-                if (arr[j]<arr[j+1]){
-                    int temp=arr[j+1];
-                    arr[j+1]=arr[j];
-                    arr[j]=temp;
-                }
-            }
-        }
-        return arr;
-    }
-}
+   通过cookie携带session数据
 
-```
+   - cookie长度的限制
+   - 安全性
+   - 消耗带宽
+   - 性能变低
 
-### 查找一个整数是否在二叉排序树中
+#### 数据库读写分离
 
-```java
-class TreeNode {
-    int key;
-    int value;
-    TreeNode left;
-    TreeNode right;
+增加一个读库来分担数据库的压力。mysql中支持master+slave结构，提供异步数据复制机制，会有延迟，提供完全镜像方式的复制，保证数据一致性
 
-    TreeNode(int key, int value) {
-        this.key = key;
-        this.value = value;
-    }
+#### 数据库拆表
 
-}
+##### 垂直拆分
 
-public class SortedTree {
-    public static void main(String[] args) {
+把数据库中的不同业务拆分到不同的数据库中
 
-    }
+##### 水平拆分
 
-    public static boolean find(int key, TreeNode root) {
-        TreeNode currentNode = root;
-        while (currentNode != null && currentNode.key != key) {
-            if (key < currentNode.key) {
-                currentNode = currentNode.left;
-            } else if (key > currentNode.key) {
-                currentNode = currentNode.right;
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
-}
+把一个表中的数据拆分到两个数据库中
 
-```
+**缓存**
+
+1. 数据缓存
+
+   使用缓存可以减轻数据库的读压力，像可以使用redis作为缓存数据库。数据缓存可以加速应用在相应请求时的数据读取速度
+
+2. 页面缓存
+
+   ESI，将处理放在apache中进行。apache对服务器返回的响应结果进行处理，找到ESI标签，去缓存中获取标签对应的数据
+
+#### 引入分布式存储系统
+
+分布式存储系统提供了一个高容量、高并发访问、数据冗余容灾的支持
+
+#### 拆分应用
+
+- 根据业务特性把应用拆分
+
+最终分布式系统的大体架构如下图所示：
+
+![分布式系统架构](https://raw.githubusercontent.com/yuanyi0510/yuanyi0510.github.io/master/images/bolg_images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/3.jpg)
+
+### Java中间件
+
+中间件：为软件应用提供了操作系统所提供的服务之外的服务
+
+这里就不自己画图了，引书上的图：
+
+![引入中间件的结构图](https://raw.githubusercontent.com/yuanyi0510/yuanyi0510.github.io/master/images/bolg_images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/4.jpg)
+
+如图所示，在webapp和service之间，通过服务框架解决了集群之间的通信问题；在应用和数据库之间，通过分布式数据层可以让应用更方便的访问已经被分库分表的数据库节点；数据复制/迁移帮助我们更好的根据业务需求完成数据的分布。
+
+### 服务框架
 
