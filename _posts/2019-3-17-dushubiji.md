@@ -137,3 +137,47 @@ http协议的无状态，所以在每次会话时需要携带会话标识，在�
 
 ### 服务框架
 
+### 消息中间件
+
+JMS：JavaEE中关于消息的规范。
+
+消息中间件的特点：异步和解耦
+
+#### 如何保证消息发送的一致性
+
+一致性是指产生消息的业务动作与消息发送的一致
+
+#### JMS如何保证消息的一致性
+
+Queue模型和Topic模型
+
+JMS几个重要元素的关系：
+
+ConnectionFactory——》Connection——》Session——》Message
+
+Destination+Session——》MessageProducer
+
+Destination+Session——》MessageConsumer
+
+JMS中引入了XA系列的接口，保证了分布式事务的支持。  
+
+![发送消息的正向流程](https://raw.githubusercontent.com/yuanyi0510/yuanyi0510.github.io/master/images/bolg_images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/5.jpg)
+
+针对异常情况可能遇到的三种状态：
+
+1. 业务操作未进行，消息未存入
+2. 业务操作未进行，消息存储未待处理
+3. 业务操作成功，消息存储，状态未待处理
+
+可以看出，只需要了解业务操作结果，就可以保证一致性
+
+![检查业务的反向流程](https://raw.githubusercontent.com/yuanyi0510/yuanyi0510.github.io/master/images/bolg_images/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/6.jpg)
+
+解决业务操作与发送消息的一致性的解决方案就是发送消息的正向流程与检查业务的反向流程结合
+
+- JMS Queue模型：是点对点的，消息在queue上是所有应用共享的，一个应用消费废掉了其他应用就收不到了
+- JMS Topic模型：是发布/订阅，在接收消息的时候，每个应用可以独立收到所有到达Topic的消息
+
+
+
+
